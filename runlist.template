@@ -1,0 +1,62 @@
+#
+#	$Id: runlist_v2.sample,v 1.0 2005/10/31 17:13:49 csadmin Exp $
+#
+#	$Log: runlist_v2.sample,v $
+#	Revision 1.0  2005/10/31 17:13:49  csadmin
+#	Initial revision
+#
+#
+#  	DMAN V2 test runlist
+#
+
+#
+# batch control items --------------------
+#
+batch isotope   14C
+batch source    S1
+batch park      0
+batch mode      nrm
+batch autorange no
+
+# cathode wheel list items --------------------
+#
+#   v-- cathode position (key)
+#   v    v-- sample type
+#   v    v      v-- sample name
+#   v    v      v                v-- sample name 2
+#   4    6      16               16
+#   Pos  SmType Sample Name      Sample Name 2
+#   ==== ====== ================ ================
+
+
+
+
+# run list items --------------------
+#   v-- item (key)         
+#   v    v-- position
+#   v    v    v-- group
+#   v    v    v   v-- summary group
+#   v    v    v   v   v-- number of measurements to perform
+#   v    v    v   v   v    v-- mode time/counts(T/C)
+#   v    v    v   v   v    v  v-- # of cycles in measurement
+#   v    v    v   v   v    v  v      v-- # max number of events when mode=C
+#   v    v    v   v   v    v  v      v      v-- warmup time in cycles 
+#   v    v    v   v   v    v  v      v      v
+#   4    4    6   3   4    2  6      6      4
+#   Item Pos  Grp Sum Runs Md Tlimit Climit Warm
+#   ==== ==== === === ==== == ====== ====== ====
+
+
+
+
+#	Summary definitions
+#
+#     Grp Group Name             
+#     === ================
+sum     1 OX1
+sum     2 OX2            
+sum     3 C6
+sum     4 C7
+sum     5 UPCG
+sum     6 Blank
+sum     7 Air
