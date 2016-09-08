@@ -22,13 +22,11 @@ abbreviateSampleName <- function(sampleNames){
         stop("Error in abbreviateSampleName: input is not a character vector.")
     }
     
-    # Define the function to use in the sapply() call
-    snCombine <- function(x) paste(x[c(1,4,5)], collapse="-")
-    
-    # Use str_split() to split the sample names and the above function to paste
-    # the useful parts back together. The if/else keeps from abbreviating sample
-    # names which do not need to be.
+    # Use ifelse() to only perform the abbreviation to sample names longer than
+    # 16 characters. Then use gsub() to select the protocol number, graphite
+    # batch number, and sample number from the sample name and use these as
+    # replacements to the original string.
     ifelse(nchar(sampleNames)>16,
-           sapply(str_split(sampleNames,"-"), FUN=snCombine),
+           gsub("^(\\d+-).*(G\\d+-\\d+$)","\\1\\2",sampleNames),
            sampleNames)
 }
