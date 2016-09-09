@@ -12,8 +12,9 @@ insertSampleInfoInRunlist <- function(runlist, text){
     #
     
     rl <- readLines(runlist)
-    fore <- rl[1:31]
-    aft <- rl[32:length(rl)]
+    breakLine <- grep("Pos  SmType Sample Name      Sample Name 2",rl) + 2
+    fore <- rl[1:breakLine]
+    aft <- rl[breakLine+1:length(rl)]
     
     newRL <- c(fore, text, aft)
     
