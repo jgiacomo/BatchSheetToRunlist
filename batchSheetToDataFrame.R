@@ -45,6 +45,5 @@ batchSheetToDF <- function(batchFile){
         fileDF <- rbind(fileDF, tempDF)
     }
     
-    fileDF$Pos <- as.integer(fileDF$Pos)
     return(fileDF)
 }
