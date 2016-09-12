@@ -49,40 +49,57 @@ measInfoFromBatchDF <- function(batchDF,
     batchDF$Climit <- str_pad(Climit, width=6, side="left")
     batchDF$warm <- str_pad(warm, width=4, side="left")
     
+    # Get all sample types from batch
+    batchSmTypes <- unique(batchDF$SmType)
+    
     # Set proper Summary, Md, and Climit values based on sample type
-    batchDF[batchDF$SmType=="OX1",]$Summary <- "  1"
-    batchDF[batchDF$SmType=="OX1",]$Md <- " T"
-    batchDF[batchDF$SmType=="OX1",]$Climit <- "     0"
+    if("OX1" %in% batchSmTypes){
+        batchDF[batchDF$SmType=="OX1",]$Summary <- "  1"
+        batchDF[batchDF$SmType=="OX1",]$Md <- " T"
+        batchDF[batchDF$SmType=="OX1",]$Climit <- "     0"
+    }
     
-    batchDF[batchDF$SmType=="OX2",]$Summary <- "  2"
-    batchDF[batchDF$SmType=="OX2",]$Md <- " T"
-    batchDF[batchDF$SmType=="OX2",]$Climit <- "     0"
+    if("OX2" %in% batchSmTypes){
+        batchDF[batchDF$SmType=="OX2",]$Summary <- "  2"
+        batchDF[batchDF$SmType=="OX2",]$Md <- " T"
+        batchDF[batchDF$SmType=="OX2",]$Climit <- "     0"
+    }
     
-    batchDF[batchDF$SmType=="C6",]$Summary <- "  3"
-    batchDF[batchDF$SmType=="C6",]$Md <- " T"
-    batchDF[batchDF$SmType=="C6",]$Climit <- "     0"
+    if("C6" %in% batchSmTypes){
+        batchDF[batchDF$SmType=="C6",]$Summary <- "  3"
+        batchDF[batchDF$SmType=="C6",]$Md <- " T"
+        batchDF[batchDF$SmType=="C6",]$Climit <- "     0"
+    }
     
-    batchDF[batchDF$SmType=="C7",]$Summary <- "  4"
-    batchDF[batchDF$SmType=="C7",]$Md <- " T"
-    batchDF[batchDF$SmType=="C7",]$Climit <- "     0"
+    if("C7" %in% batchSmTypes){
+        batchDF[batchDF$SmType=="C7",]$Summary <- "  4"
+        batchDF[batchDF$SmType=="C7",]$Md <- " T"
+        batchDF[batchDF$SmType=="C7",]$Climit <- "     0"
+    }
     
-    batchDF[batchDF$SmType=="UPCG",]$Summary <- "  5"
-    batchDF[batchDF$SmType=="UPCG",]$Md <- " T"
-    batchDF[batchDF$SmType=="UPCG",]$Climit <- "     0"
-    batchDF[batchDF$SmType=="UPCG",]$warm <- str_pad(blankWarm, width=4,
-                                                     side="left")
+    if("UPCG" %in% batchSmTypes){
+        batchDF[batchDF$SmType=="UPCG",]$Summary <- "  5"
+        batchDF[batchDF$SmType=="UPCG",]$Md <- " T"
+        batchDF[batchDF$SmType=="UPCG",]$Climit <- "     0"
+        batchDF[batchDF$SmType=="UPCG",]$warm <- str_pad(blankWarm, width=4,
+                                                         side="left")
+    }
     
-    batchDF[batchDF$SmType=="Blank",]$Summary <- "  6"
-    batchDF[batchDF$SmType=="Blank",]$Md <- " T"
-    batchDF[batchDF$SmType=="Blank",]$Climit <- "     0"
-    batchDF[batchDF$SmType=="Blank",]$warm <- str_pad(blankWarm, width=4,
-                                                     side="left")
+    if("Blank" %in% batchSmTypes){
+        batchDF[batchDF$SmType=="Blank",]$Summary <- "  6"
+        batchDF[batchDF$SmType=="Blank",]$Md <- " T"
+        batchDF[batchDF$SmType=="Blank",]$Climit <- "     0"
+        batchDF[batchDF$SmType=="Blank",]$warm <- str_pad(blankWarm, width=4,
+                                                         side="left")
+    }
     
-    batchDF[batchDF$SmType=="Air",]$Summary <- "  7"
-    batchDF[batchDF$SmType=="Air",]$Md <- " T"
-    batchDF[batchDF$SmType=="Air",]$Climit <- "     0"
-    batchDF[batchDF$SmType=="Air",]$warm <- str_pad(blankWarm, width=4,
-                                                      side="left")
+    if("Air" %in% batchSmTypes){
+        batchDF[batchDF$SmType=="Air",]$Summary <- "  7"
+        batchDF[batchDF$SmType=="Air",]$Md <- " T"
+        batchDF[batchDF$SmType=="Air",]$Climit <- "     0"
+        batchDF[batchDF$SmType=="Air",]$warm <- str_pad(blankWarm, width=4,
+                                                          side="left")
+    }
     
     # Set proper Runs if dating samples
     batchDF[grepl('^1232-',batchDF$ID),]$Runs <- str_pad(datingRuns, width=4,
