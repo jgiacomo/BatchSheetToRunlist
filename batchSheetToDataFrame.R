@@ -37,8 +37,7 @@ batchSheetToDF <- function(batchFile){
         tempDF <- tempDF[,c(1,2,3,6)]
         
         names(tempDF) <- c("Pos","ID","ID2","Comment")
-        tempDF$Batch <- str_extract(batchFile,
-         '(?<=sheets/AMS )(?s)(.*)(?=.xls)|(?<=sheets\\\\AMS )(?s)(.*)(?=.xls)')
+        tempDF$Batch <- gsub('(^.*AMS )(.*)(\\.xl.*$)', '\\2', batchFile)
         tempDF <- tempDF[!is.na(tempDF$ID),]
         tempDF <- tempDF %>% select(Batch, everything())
         
