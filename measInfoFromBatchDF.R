@@ -102,8 +102,10 @@ measInfoFromBatchDF <- function(batchDF,
     }
     
     # Set proper Runs if dating samples
-    batchDF[grepl('^1232-',batchDF$ID),]$Runs <- str_pad(datingRuns, width=4,
-                                                         side="left")
+    if(any(grepl('^1232-',batchDF$ID))){
+        batchDF[grepl('^1232-',batchDF$ID),]$Runs <- 
+            str_pad(datingRuns, width=4,side="left")
+    }
     
     # Create the character vector from the data frame
     measInfo <- paste(batchDF$lead,
