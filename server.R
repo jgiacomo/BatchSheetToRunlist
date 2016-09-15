@@ -106,16 +106,19 @@ shinyServer(function(input, output, session) {
         sampleLine <- grep("Pos  SmType Sample Name      Sample Name 2",
                            rlTemp) + 2
         fore <- rlTemp[1:sampleLine]
-        aft <- rlTemp[sampleLine+1:length(rlTemp)]
+        aft <- rlTemp[(sampleLine+1):length(rlTemp)]
         
         runlist <- c(fore, sampleInfo, aft)
         
         measLine <- grep("Item Pos  Grp Sum Runs Md Tlimit Climit Warm",
                          runlist) + 2
         fore <- runlist[1:measLine]
-        aft <- runlist[measLine+1:length(runlist)]
+        aft <- runlist[(measLine+1):length(runlist)]
         
-        runlist <- c(fore, measLine, aft)
+        runlist <- c(fore, measInfo, aft)
+        
+        # Not sure why NAs show up at end of file but need to remove them
+        #runlist <- runlist[-grep("NA",runlist)]
         
     })
     
