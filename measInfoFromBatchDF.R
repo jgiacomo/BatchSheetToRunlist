@@ -1,6 +1,4 @@
 measInfoFromBatchDF <- function(batchDF,
-                                bioRuns="5",
-                                datingRuns="10",
                                 Tlimit="1200",
                                 Climit="40000",
                                 warm="100",
@@ -12,8 +10,6 @@ measInfoFromBatchDF <- function(batchDF,
     #
     # Arguments:
     #     batchDF - a data frame of batch sheet data with sample types.
-    #     bioRuns - number of runs to complete on bioanalytical samples.
-    #     datingRuns - number of runs to complete on dating samples.
     #     Tlimit - time limit for run (deciseconds)
     #     Climit - count limit for a run (number of 14C counts)
     #     warm - time of warmup before starting run (deciseconds)
@@ -43,7 +39,7 @@ measInfoFromBatchDF <- function(batchDF,
     batchDF$Pos <- str_pad(batchDF$Pos, width=4, side="left")
     batchDF$Group <- str_pad(batchDF$Group, width=3, side="left")
     batchDF$Summary <- "  0"  # To be corrected later.
-    batchDF$Runs <- str_pad(bioRuns, width=4, side="left")  # Corrected later.
+    batchDF$Runs <- str_pad(batchDF$Runs, width=4, side="left")
     batchDF$Md <- " C"  # To be corrected later.
     batchDF$Tlimit <- str_pad(Tlimit, width=6, side="left")
     batchDF$Climit <- str_pad(Climit, width=6, side="left")
@@ -99,12 +95,6 @@ measInfoFromBatchDF <- function(batchDF,
         batchDF[batchDF$SmType=="Air",]$Climit <- "     0"
         batchDF[batchDF$SmType=="Air",]$warm <- str_pad(blankWarm, width=4,
                                                           side="left")
-    }
-    
-    # Set proper Runs if dating samples
-    if(any(grepl('^1232-',batchDF$ID))){
-        batchDF[grepl('^1232-',batchDF$ID),]$Runs <- 
-            str_pad(datingRuns, width=4,side="left")
     }
     
     # Create the character vector from the data frame
