@@ -23,37 +23,49 @@ shinyUI(fluidPage(
 
       fluidRow(
           hr(),
-          h4("Define standards and blanks"),
+          h4(strong("Define standards and blanks")),
+          h6("Enter positions like: 1, 5-13, 21"),
           column(6,
-                 textInput("type_OX1",label="OX1"),
-                 textInput("typ_OX2",label="OX2"),
-                 textInput("typ_C6",label="C6"),
-                 textInput("typ_C7",label="C7")
+                 textInput("typ_OX2",label="OX2",placeholder="0,10,20,30"),
+                 textInput("typ_C7",label="C7"),
+                 textInput("typ_C1",label="C1"),
+                 textInput("type_OX1",label="OX1")
+                 
           ),
           
           column(6,
                  textInput("typ_UPGC",label="UPCG"),
                  textInput("typ_Blank",label="Blank"),
-                 textInput("typ_C1",label="C1"),
-                 textInput("typ_C2",label="C2")
+                 textInput("typ_C2",label="C2"),
+                 textInput("typ_C6",label="C6")
           )
       ),
       
       fluidRow(
           hr(),
-          h4("Define measurement groups"),
+          h4(strong("Define groups and # of runs")),
+          h6(paste0("Enter positions in the group boxes and the number of ",
+                    "runs in the # of runs boxes (leave empty if no group).")),
           column(6,
-                 textInput("grp0",label="Group 1"),
+                 textInput("grp0",label="Group 1",placeholder="0-39"),
                  textInput("grp1",label="Group 2"),
                  textInput("grp2",label="Group 3"),
-                 textInput("grp3",label="Group 4")
-          ),
-          
-          column(6,
+                 textInput("grp3",label="Group 4"),
                  textInput("grp4",label="Group 5"),
                  textInput("grp5",label="Group 6"),
                  textInput("grp6",label="Group 7"),
                  textInput("grp7",label="Group 8")
+          ),
+          
+          column(6,
+                 textInput("run0",label="# of runs",value="5"),
+                 textInput("run1",label="# of runs",value="5"),
+                 textInput("run2",label="# of runs",value="5"),
+                 textInput("run3",label="# of runs",value="5"),
+                 textInput("run4",label="# of runs",value="5"),
+                 textInput("run5",label="# of runs",value="5"),
+                 textInput("run6",label="# of runs",value="5"),
+                 textInput("run7",label="# of runs",value="5")
           )
       )
       
@@ -62,7 +74,8 @@ shinyUI(fluidPage(
     # Show a table of the batch samples
     mainPanel(
         verbatimTextOutput('test'),
-        tableOutput('batch')
+        downloadButton('dlRunlist', "Download runlist"),
+        tableOutput('RunList')
     )
   )
 ))
