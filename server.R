@@ -119,16 +119,20 @@ shinyServer(function(input, output, session) {
         
     })
     
-    output$Table <- renderTable({
-        tblRunlist <- runlist()
+    output$rl <- renderText({
+        validate(need(input$batchSheet,"Please select a batch sheet"))
+        rl <- runlist()
+        paste(rl,"\n",sep="",collapse="")
         
     })
     
     output$dlRunlist <- downloadHandler(filename="runlist",
                                         content=function(file){
+                                            rl <- runlist()
                                             fileConn <- file(file, open="wb")
-                                            writeLines(runlist(),
-                                                       fileConn, sep="\n")
+                                            writeLines(rl,
+                                                       fileConn,
+                                                       sep="\n")
                                             close(fileConn)
                                         })
     

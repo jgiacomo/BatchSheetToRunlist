@@ -75,7 +75,7 @@ shinyUI(fluidPage(
     mainPanel(
         verbatimTextOutput('test'),
         downloadButton('dlRunlist', "Download runlist"),
-        tableOutput('RunList')
+        verbatimTextOutput('rl')
     )
   )
 ))
