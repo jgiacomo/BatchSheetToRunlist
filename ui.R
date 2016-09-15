@@ -73,7 +73,6 @@ shinyUI(fluidPage(
 
     # Show a table of the batch samples
     mainPanel(
-        verbatimTextOutput('test'),
         downloadButton('dlRunlist', "Download runlist"),
         verbatimTextOutput('rl')
     )

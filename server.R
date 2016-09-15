@@ -41,10 +41,6 @@ chgGroup <- function(df, inGrp, group, inRun){
 
 shinyServer(function(input, output, session) {
   
-    output$test <- renderText({
-        input$grp0==""
-    })
-    
     batchDF <- reactive({
         # Create a data frame from a batch sheet (Excel)
         batchFile <- input$batchSheet
