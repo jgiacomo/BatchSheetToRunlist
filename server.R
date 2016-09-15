@@ -113,9 +113,11 @@ shinyServer(function(input, output, session) {
         
         runlist <- c(fore, measInfo, aft)
         
-        # Not sure why NAs show up at end of file but need to remove them
-        #runlist <- runlist[-grep("NA",runlist)]
+        # Set the source based on user input
+        runlist[which(grepl('batch source',runlist))] <-
+            paste0("batch source    ", input$source)
         
+        return(runlist)
     })
     
     output$rl <- renderText({
