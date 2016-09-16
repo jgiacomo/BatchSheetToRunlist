@@ -10,9 +10,10 @@ library(shiny)
 shinyUI(fluidPage(
 
   # Application title
-  titlePanel("Accium Biosciences - NEC Runlist Generator"),
+  titlePanel(p(img(src="Accium_Full_Logo.png", height = 75, width = 197),
+             "NEC Runlist Generator")),
 
-  # Sidebar with a slider input for number of bins
+  # Sidebar with user input widgets
   sidebarLayout(
     sidebarPanel(
       fileInput('batchSheet', 'Choose the Batch Sheet file',
@@ -71,7 +72,7 @@ shinyUI(fluidPage(
       
     ),
 
-    # Show a table of the batch samples
+    # Show a preview of the runlist with a download button
     mainPanel(
         downloadButton('dlRunlist', "Download runlist"),
         verbatimTextOutput('rl')
