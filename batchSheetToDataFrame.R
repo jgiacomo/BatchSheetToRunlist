@@ -40,6 +40,7 @@ batchSheetToDF <- function(batchFile){
         tempDF$Batch <- gsub('(^.*AMS )(.*)(\\.xl.*$)', '\\2', batchFile)
         tempDF <- tempDF[!is.na(tempDF$ID),]
         tempDF <- tempDF %>% select(Batch, everything())
+        tempDF$Pos <- as.character(round(as.numeric(tempDF$Pos)))
         
         fileDF <- rbind(fileDF, tempDF)
     }
