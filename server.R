@@ -117,6 +117,11 @@ shinyServer(function(input, output, session) {
         runlist[which(grepl('batch source',runlist))] <-
             paste0("batch source    ", input$source)
         
+        # Enter the batch number
+        batchNumber <- bdf[1,]$Batch
+        runlist[which(grepl('AMS Batch',runlist))] <- 
+            paste0("#   AMS Batch ", batchNumber)
+        
         return(runlist)
     })
     
