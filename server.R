@@ -77,7 +77,7 @@ shinyServer(function(input, output, session) {
                     batchDF()[grepl('OX2|OXII',batchDF()$Comment),]$Pos)
         
         # Positions of machine blanks
-        MBpos <- batchDF()[grepl('999-16679',batchDF()$ID2),]$Pos
+        MBpos <- batchDF()[grepl('999-16[0-9]{3}',batchDF()$ID2),]$Pos
         
         # Positions of chemical blanks
         CBpos <- c(batchDF()[grepl('bla-|blank|Blank|BLANK',
