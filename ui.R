@@ -81,7 +81,7 @@ shinyUI(fluidPage(
         ),
         
         column(6,
-               tableOutput('bSheetTbl')
+               dataTableOutput('bSheetTbl')
                )
     )
   )

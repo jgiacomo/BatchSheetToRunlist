@@ -147,6 +147,8 @@ shinyServer(function(input, output, session) {
         validate(need(input$batchSheet, "Please select a batch sheet"))
         btbl <- batchDF()
         btbl <- btbl %>% select(Pos, ID, ID2, Comment)
-    })
+    }, options=list(pageLength=25),
+       rownames=FALSE
+    )
     
 })
