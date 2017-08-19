@@ -6,6 +6,7 @@
 #
 
 library(shiny)
+library(DT)
 source("batchSheetToDataFrame.R")
 source("numInputToIntegers.R")
 source("abbreviateSampleName.R")
@@ -141,5 +142,11 @@ shinyServer(function(input, output, session) {
                                                        sep="\n")
                                             close(fileConn)
                                         })
+    
+    output$bSheetTbl <- renderDataTable({
+        validate(need(input$batchSheet, "Please select a batch sheet"))
+        btbl <- batchDF()
+        btbl <- btbl %>% select(Pos, ID, ID2, Comment)
+    })
     
 })
