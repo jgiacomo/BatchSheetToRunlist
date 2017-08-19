@@ -28,16 +28,16 @@ shinyUI(fluidPage(
           h6("Enter positions like: 1, 5-13, 21"),
           column(6,
                  textInput("typ_OX2",label="OX2",placeholder="0,10,20,30"),
-                 textInput("typ_C7",label="C7"),
-                 textInput("typ_C1",label="C1"),
+                 textInput("typ_Blank",label="Blank"),
+                 textInput("typ_C2",label="C2"),
                  textInput("type_OX1",label="OX1")
                  
           ),
           
           column(6,
-                 textInput("typ_UPGC",label="UPCG"),
-                 textInput("typ_Blank",label="Blank"),
-                 textInput("typ_C2",label="C2"),
+                 textInput("typ_Mblank",label="Machine Blank"),
+                 textInput("typ_C7",label="C7"),
+                 textInput("typ_C1",label="C1"),
                  textInput("typ_C6",label="C6")
           )
       ),
@@ -59,14 +59,14 @@ shinyUI(fluidPage(
           ),
           
           column(6,
-                 textInput("run0",label="# of runs",value="5"),
-                 textInput("run1",label="# of runs",value="5"),
-                 textInput("run2",label="# of runs",value="5"),
-                 textInput("run3",label="# of runs",value="5"),
-                 textInput("run4",label="# of runs",value="5"),
-                 textInput("run5",label="# of runs",value="5"),
-                 textInput("run6",label="# of runs",value="5"),
-                 textInput("run7",label="# of runs",value="5")
+                 textInput("run0",label="# of runs",value="12"),
+                 textInput("run1",label="# of runs",value="12"),
+                 textInput("run2",label="# of runs",value="12"),
+                 textInput("run3",label="# of runs",value="12"),
+                 textInput("run4",label="# of runs",value="12"),
+                 textInput("run5",label="# of runs",value="12"),
+                 textInput("run6",label="# of runs",value="12"),
+                 textInput("run7",label="# of runs",value="12")
           )
       )
       
@@ -74,8 +74,15 @@ shinyUI(fluidPage(
 
     # Show a preview of the runlist with a download button
     mainPanel(
-        downloadButton('dlRunlist', "Download runlist"),
-        verbatimTextOutput('rl')
+        
+        column(6,
+               downloadButton('dlRunlist', "Download runlist"),
+               verbatimTextOutput('rl')
+        ),
+        
+        column(6,
+               dataTableOutput('bSheetTbl')
+               )
     )
   )
 ))

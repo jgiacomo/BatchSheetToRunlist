@@ -6,6 +6,7 @@
 #
 
 library(shiny)
+library(DT)
 source("batchSheetToDataFrame.R")
 source("numInputToIntegers.R")
 source("abbreviateSampleName.R")
@@ -70,6 +71,56 @@ shinyServer(function(input, output, session) {
         return(bdf)
     })
     
+    observe({
+        # Positions of OX2 standards
+        OX2pos <- c(batchDF()[grepl('OX2|OXII',batchDF()$ID2),]$Pos,
+                    batchDF()[grepl('OX2|OXII',batchDF()$Comment),]$Pos)
+        
+        # Positions of machine blanks
+        MBpos <- batchDF()[grepl('999-16679',batchDF()$ID2),]$Pos
+        
+        # Positions of chemical blanks
+        CBpos <- c(batchDF()[grepl('bla-|blank|Blank|BLANK',
+                                   batchDF()$ID2),]$Pos,
+                   batchDF()[grepl('blank|Blank|BLANK|BK ',
+                                   batchDF()$Comment),]$Pos)
+        
+        # Positions of C1, C2, C6, and C7 samples
+        C1pos <- c(batchDF()[grepl('C1-|C1 ',batchDF()$ID2),]$Pos,
+                   batchDF()[grepl('C1-|C1 ',batchDF()$Comment),]$Pos)
+        
+        C2pos <- c(batchDF()[grepl('C2-|C2 ',batchDF()$ID2),]$Pos,
+                   batchDF()[grepl('C2-|C2 ',batchDF()$Comment),]$Pos)
+        
+        C6pos <- c(batchDF()[grepl('C6-|C6 ',batchDF()$ID2),]$Pos,
+                   batchDF()[grepl('C6-|C6 ',batchDF()$Comment),]$Pos)
+        
+        C7pos <- c(batchDF()[grepl('C7-|C7 ',batchDF()$ID2),]$Pos,
+                   batchDF()[grepl('C7-|C7 ',batchDF()$Comment),]$Pos)
+        
+        # Collapse position vectors to comma separated text
+        OX2pos <- paste(OX2pos, collapse=",")
+        MBpos <- paste(MBpos, collapse=",")
+        CBpos <- paste(CBpos, collapse=",")
+        C1pos <- paste(C1pos, collapse=",")
+        C2pos <- paste(C2pos, collapse=",")
+        C6pos <- paste(C6pos, collapse=",")
+        C7pos <- paste(C7pos, collapse=",")
+        
+        # Update textInput boxes with these found positions
+        updateTextInput(session, inputId='typ_OX2',label="OX2", value=OX2pos)
+        updateTextInput(session, inputId='typ_Mblank',label="Machine Blank",
+                        value=MBpos)
+        updateTextInput(session, inputId='typ_Blank',label="Chemical Blank",
+                        value=CBpos)
+        updateTextInput(session, inputId='typ_C1',label="C1", value=C1pos)
+        updateTextInput(session, inputId='typ_C2',label="C2", value=C2pos)
+        updateTextInput(session, inputId='typ_C6',label="C6", value=C6pos)
+        updateTextInput(session, inputId='typ_C7',label="C7", value=C7pos)
+        
+        print(paste(C2pos, collapse=","))
+    })
+    
     runlist <- reactive({
         # Create the runlist using the batch data frame
         bdf <- batchDF()
@@ -78,7 +129,7 @@ shinyServer(function(input, output, session) {
         bdf <- chgSmType(bdf, input$typ_OX2, "OX2")
         bdf <- chgSmType(bdf, input$type_OX1, "OX1")
         bdf <- chgSmType(bdf, input$typ_C7, "C7")
-        bdf <- chgSmType(bdf, input$typ_UPGC, "UPCG")
+        bdf <- chgSmType(bdf, input$typ_Mblank, "UPCG")
         bdf <- chgSmType(bdf, input$typ_Blank, "Blank")
         bdf <- chgSmType(bdf, input$typ_C1, "C1")
         bdf <- chgSmType(bdf, input$typ_C2, "C2")
@@ -141,5 +192,13 @@ shinyServer(function(input, output, session) {
                                                        sep="\n")
                                             close(fileConn)
                                         })
+    
+    output$bSheetTbl <- renderDataTable({
+        validate(need(input$batchSheet, "Please select a batch sheet"))
+        btbl <- batchDF()
+        btbl <- btbl %>% select(Pos, ID, ID2, Comment)
+    }, options=list(pageLength=25),
+       rownames=FALSE
+    )
     
 })
