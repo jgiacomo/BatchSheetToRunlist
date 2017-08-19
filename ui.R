@@ -35,7 +35,7 @@ shinyUI(fluidPage(
           ),
           
           column(6,
-                 textInput("typ_UPGC",label="UPCG"),
+                 textInput("typ_Mblank",label="Machine Blank"),
                  textInput("typ_C7",label="C7"),
                  textInput("typ_C1",label="C1"),
                  textInput("typ_C6",label="C6")
